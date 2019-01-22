@@ -1,5 +1,5 @@
 # SimpleBlazorTest
-Short example of using [Blazor.net](Blazor) framework
+Short example of using [Blazor](http://Blazor.net) framework
 
 Simple data objects runtime editor.
 At start this application creates instances of classes from DataTypes directory and provides web view to edit their fields and properties.
