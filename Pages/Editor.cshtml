@@ -1,0 +1,104 @@
+@page "/"
+
+@using System.Text
+@using MicrosoftJson = Microsoft.JSInterop.Json;
+
+<button class="btn btn-outline-primary" onclick="@SaveData">Save data</button>
+
+@inject HttpClient Http
+
+@foreach (var dataObject in _dataObjects)
+{
+    <h4>@dataObject</h4><br>
+    
+    <p>
+        <h5>Fields</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fieldInfo in dataObject.GetType().GetFields())
+                {
+                    if (fieldInfo.Name == "Name")
+                    {
+                        fieldInfo.SetValue(dataObject, dataObject.ToString());
+                        continue;
+                    }
+                    <tr>
+                        <td>@fieldInfo.Name</td>
+                        <td><input class="form-control" id="ex3" type="text" value="@fieldInfo.GetValue(dataObject)" 
+                                   onchange=@(newValue =>
+                                                  fieldInfo.SetValue(
+                                                      dataObject,
+                                                      SafeConvert((newValue as UIChangeEventArgs).Value, fieldInfo.FieldType)))/></td>
+                    </tr>
+                }
+            </tbody>      
+        </table>
+    </p>
+    
+    <p>
+        <h5>Properties</h5>
+        <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var propertyInfo in dataObject.GetType().GetProperties())
+        {
+            <tr>
+                <td>@propertyInfo.Name</td> 
+        <td><input class="form-control" id="ex3" type="text" value="@propertyInfo.GetValue(dataObject)" 
+               onchange=@(newValue => 
+                              propertyInfo.SetValue(
+                                  dataObject, 
+                                  SafeConvert((newValue as UIChangeEventArgs).Value, propertyInfo.PropertyType))) /></td> 
+            </tr>
+        
+        }
+        </tbody>      
+        </table>
+    </p>    
+    <br/>
+}
+
+@functions 
+{
+    private const string Namespace = "SimpleBlazorTest.DataTypes";
+    private IEnumerable<Type> _dataTypes;
+    private  List<object> _dataObjects;
+    
+    static object SafeConvert(object value, Type type)
+    {
+        object result;
+        try { result = Convert.ChangeType(value, type); }
+        catch { result = null; }
+        return result;
+    }
+
+    protected override void OnInit()
+    {
+        _dataTypes = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(t => t.GetTypes()).Where(t => t.IsClass && t.Namespace == Namespace);
+
+        _dataObjects = new List<object>();
+        
+        foreach (var dataType in _dataTypes)
+        {
+            var dataObject = Activator.CreateInstance(dataType);
+            _dataObjects.Add(dataObject);
+        }
+    }
+
+    private void SaveData()
+    {
+        FileUtil.SaveAs("Data.json",  Encoding.ASCII.GetBytes(MicrosoftJson.Serialize(_dataObjects)));
+    }
+}

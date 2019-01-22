@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RunCommand>dotnet</RunCommand>
+    <RunArguments>blazor serve</RunArguments>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyName>SimpleBlazorTest</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Browser" Version="0.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.7.0" PrivateAssets="all" />
+
+    <DotNetCliToolReference Include="Microsoft.AspNetCore.Blazor.Cli" Version="0.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Editor.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\sample-data\DataTypes.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ResolveComReferenceCache Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.csproj.ResolveComReference.cache" />
+    <_ResolveComReferenceCache Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.csproj.ResolveComReference.cache" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <IntermediateAssembly Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.dll" />
+    <IntermediateAssembly Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_DebugSymbolsIntermediatePath Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.pdb" />
+    <_DebugSymbolsIntermediatePath Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.pdb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_DeploymentManifestEntryPoint Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.dll" />
+    <_DeploymentManifestEntryPoint Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationManifest Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.dll.manifest" />
+    <ApplicationManifest Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.dll.manifest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DeployManifest Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.application" />
+    <DeployManifest Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.application" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <RazorIntermediateAssembly Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.Razor.dll" />
+    <RazorIntermediateAssembly Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.Razor.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_RazorDebugSymbolsIntermediatePath Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.Razor.pdb" />
+    <_RazorDebugSymbolsIntermediatePath Remove="obj\Debug\netstandard2.0\SimpleBlazorTest.Razor.pdb" />
+  </ItemGroup>
+
+</Project>
